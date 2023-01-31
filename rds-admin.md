@@ -20,3 +20,16 @@ ORDER BY record_id ASc
 ;
 
 ```
+
+## KILL SESSION(RDS)
+
+``` SQL
+SELECT SYS_CONTEXT('USERENV', 'SESSION_USER')  FROM DUAL;
+
+SELECT SID, SERIAL#, USERNAME FROM V$SESSION
+WHERE 0=0
+AND USERNAME='NBUA05';
+-- AND SID=in_sid and SERIAL#=in_serial
+;
+EXECUTE IMMEDIATE rdsadmin.rdsadmin_util.kill( SID, SERIAL# );
+```
