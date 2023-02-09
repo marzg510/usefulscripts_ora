@@ -7,7 +7,12 @@ SELECT message_text FROM alertlog;
 
 SELECT record_id, message_text,ORIGINATING_TIMESTAMP, message_type,message_level FROM alertlog;
 
-SELECT record_id, ORIGINATING_TIMESTAMP, message_text, message_type,message_level FROM alertlog where message_text like '%ORA-%';
+SELECT record_id, ORIGINATING_TIMESTAMP, message_text, message_type,message_level FROM alertlog 
+where 0=0
+-- AND message_text like '%ORA-%'
+AND message_text like '%Resize%'
+AND ORIGINATING_TIMESTAMP > '23-02-09 09:00:00.00000'
+;
 
 SELECT * FROM
 (
