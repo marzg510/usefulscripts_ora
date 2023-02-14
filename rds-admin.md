@@ -36,5 +36,5 @@ WHERE 0=0
 AND USERNAME='NBUA05';
 -- AND SID=in_sid and SERIAL#=in_serial
 ;
-EXECUTE rdsadmin.rdsadmin_util.kill( SID, SERIAL# IMMEDIATE' );
+EXECUTE rdsadmin.rdsadmin_util.kill( SID, SERIAL# 'IMMEDIATE' );
  ```
