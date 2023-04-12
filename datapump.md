@@ -1,6 +1,6 @@
 ## expdp
 ```Powershell
-expdp nbdv80/NBDV80@nbdba DUMPFILE=DATA_PUMP_DIR:NBDV80_20221108_test.dmp DIRECTORY=DATA_PUMP_DIR
+expdp user/*****@conn DUMPFILE=DATA_PUMP_DIR:user_$(Get-Date -format "yyyyMMdd_HHmmss")_test.dmp DIRECTORY=DATA_PUMP_DIR
 
 ```
 ```SQL
@@ -15,7 +15,7 @@ DECLARE
   targetschema varchar2(1000);
 BEGIN
   dt := TO_CHAR(sysdate,'YYYYMMDD_HH24MISS');
-  targetschema := 'NBDV80';
+  targetschema := 'user';
   filename := targetschema || '_' || dt || '.dmp';
   dirname := 'DATA_PUMP_DIR';
   logname := 'exp_' || targetschema || '_' || dt || '.log';
@@ -40,7 +40,7 @@ SELECT * from table(RDSADMIN.RDS_FILE_UTIL.LISTDIR('DATA_PUMP_DIR')) order by MT
 
 ## impdp
 ```powershell
-impdp user/pass@con_str REMAP_SCHEMA=src:target DUMPFILE=DATA_PUMP_DIR:exp.dmp PARFILE=masterimp.par
+impdp user/pass@con_str REMAP_SCHEMA=src:target DUMPFILE=DATA_PUMP_DIR:exp.dmp
 
 # DRY-RUN: expdp : ESTIMATE_ONLY=Y
 # DRY-RUN: impdp : SQLFILE='dummy.sql'
@@ -88,7 +88,7 @@ END;
 
 
 ```SQL
-EXEC rdsadmin.rdsadmin_util.create_directory(p_directory_name => 'NB_DATA_PUMP_DIR');
+EXEC rdsadmin.rdsadmin_util.create_directory(p_directory_name => 'DATA_PUMP_DIR');
 
 ```
 
